@@ -24,15 +24,27 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+body {
+  background-color: #C4E1F6;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  font-size: 20px;
+
+}
+
+button {
+  background-color: #FEEE91;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 100;
+  font-size: 20px;
+  border-radius: 30px;
+
+}
+
+List {
+  background-color: #FF9D3D
 }
