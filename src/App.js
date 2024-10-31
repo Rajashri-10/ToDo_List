@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Edit from './edit';
 import './App.css';
 
 function App() {
-  const [todoList, SettodoList] = useState([]);
+  const [todoList, settodoList] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
+
+  useEffect(() => {
+    const Listdata = JSON.parse(localStorage.getItem('history'));
+    if (Listdata) {
+      settodoList(Listdata);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (todoList.length > 0) {
+      localStorage.setItem('history', JSON.stringify(todoList));
+    }
+  }, [todoList]);
+
 
   const handleChange = (event) => {
     setNewTask(event.target.value);
@@ -15,8 +29,9 @@ function App() {
   const addTask = () => {
     const task = { id: todoList?.length + 1, task: newTask }
     const newtodoList = [...todoList, task];
+    localStorage.setItem('history', JSON.stringify(todoList));
 
-    SettodoList(newtodoList);
+    settodoList(newtodoList);
 
   };
 
@@ -29,7 +44,8 @@ function App() {
         return true;
       }
     })
-    SettodoList(newTodoList);
+    settodoList(newTodoList);
+    localStorage.setItem('history', JSON.stringify(newTodoList));
   };
 
   const editTask = (task) => {
@@ -41,10 +57,11 @@ function App() {
     const updatedTodoList = todoList.map(task =>
       task.id === updatedTask.id ? updatedTask : task
     );
-    SettodoList(updatedTodoList);
+    settodoList(updatedTodoList);
     setIsEditing(false);
     setCurrentTask(null);
   };
+
 
   return (
     <div className="App">
